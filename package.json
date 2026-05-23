@@ -1,0 +1,32 @@
+{
+  "name": "noble-vip-transfer",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.29",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "framer-motion": "^11.18.2",
+    "gsap": "^3.12.7",
+    "@studio-freight/lenis": "^1.0.42",
+    "next-intl": "^3.26.5",
+    "lucide-react": "^0.511.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "@types/node": "^22.15.21",
+    "@types/react": "^18.3.21",
+    "@types/react-dom": "^18.3.7",
+    "tailwindcss": "^3.4.17",
+    "postcss": "^8.5.3",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.27.0",
+    "eslint-config-next": "14.2.29"
+  }
+}

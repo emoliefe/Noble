@@ -1,0 +1,178 @@
+{
+  "nav": {
+    "destinations": "Reiseziele",
+    "pricing": "Preise",
+    "about": "Über uns",
+    "testimonials": "Bewertungen",
+    "book": "Jetzt buchen",
+    "home": "Startseite"
+  },
+  "hero": {
+    "tagline": "Premium Flughafentransfer",
+    "title": "Noble VIP Transfer",
+    "subtitle": "Antalyas exklusivstes Flughafentransfer-Erlebnis. Reisen Sie in absolutem Komfort und Eleganz.",
+    "cta_book": "VIP Transfer buchen",
+    "cta_prices": "Preisliste anzeigen",
+    "stat_trips": "Transfers",
+    "stat_rating": "Bewertung",
+    "stat_years": "Jahre",
+    "stat_countries": "Länder"
+  },
+  "trust": {
+    "trips": "5.000+",
+    "trips_label": "VIP Transfers",
+    "rating": "4,9★",
+    "rating_label": "Durchschnittsbewertung",
+    "years": "8+",
+    "years_label": "Jahre Erfahrung",
+    "countries": "40+",
+    "countries_label": "Bediente Länder"
+  },
+  "about": {
+    "label": "Über Noble",
+    "title": "Wo Luxus auf Präzision trifft",
+    "body": "Noble VIP Transfer definiert den Flughafentransfer in Antalya neu. Wir glauben, dass jede Reise das beste Fahrzeug, den professionellsten Fahrer und das höchste Maß an persönlichem Service verdient. Vom Moment der Landung sind wir für Sie da.",
+    "feature_1_title": "Begrüßungsservice",
+    "feature_1_body": "Ihr Fahrer erwartet Sie mit einem personalisierten Namensschild im Ankunftsbereich.",
+    "feature_2_title": "Flugverfolgung",
+    "feature_2_body": "Wir verfolgen Ihren Flug in Echtzeit. Verspätungen kosten Sie nichts.",
+    "feature_3_title": "Premium Fahrzeug",
+    "feature_3_body": "Reisen Sie exklusiv in unserem Mercedes Vito VIP — der Gipfel des Transferkomforts.",
+    "feature_4_title": "24/7 Verfügbarkeit",
+    "feature_4_body": "Tag oder Nacht, früh morgens oder spät abends — wir sind immer für Sie da."
+  },
+  "vehicle": {
+    "label": "Unsere Flotte",
+    "title": "Mercedes Vito VIP",
+    "subtitle": "Ein Fahrzeug. Für Perfektion ausgewählt.",
+    "body": "Wir bieten ein einziges, handverlesenes Fahrzeug: den Mercedes Vito VIP. Makellos gewartet, ausgestattet mit Premium-Ledersitzen, Klimaanlage, Ambiente-Beleuchtung und kostenlosem WLAN. Jedes Detail wurde für Ihren höchsten Komfort bedacht.",
+    "spec_1": "Bis zu 7 Passagiere",
+    "spec_2": "Premium-Lederinnenraum",
+    "spec_3": "Klimatisiert",
+    "spec_4": "Kostenloses WLAN",
+    "spec_5": "Gekühltes Wasser & Erfrischungen",
+    "spec_6": "Professioneller Fahrer",
+    "cta": "Dieses Fahrzeug buchen"
+  },
+  "destinations": {
+    "label": "Reiseziele",
+    "title": "Beliebte Reiseziele",
+    "subtitle": "Vom Flughafen Antalya zu den schönsten Resorts und Städten der Türkischen Riviera.",
+    "from": "Vom Flughafen Antalya",
+    "book": "Transfer buchen",
+    "price_from": "ab",
+    "lara": "Lara",
+    "belek": "Belek",
+    "kemer": "Kemer",
+    "side": "Side",
+    "alanya": "Alanya",
+    "adrasan": "Adrasan",
+    "kaleiçi": "Kaleiçi",
+    "konyaaltı": "Konyaaltı"
+  },
+  "pricing": {
+    "label": "Transferpreise",
+    "title": "Transparente Preise",
+    "subtitle": "Alle Preise sind festgelegt, inklusive und in Euro angegeben. Keine versteckten Gebühren, nie.",
+    "search_placeholder": "Reiseziel suchen…",
+    "destination": "Reiseziel",
+    "price": "Preis",
+    "book": "Buchen",
+    "all_prices": "Alle Preise ab Flughafen Antalya. Festpreis, keine Überraschungen.",
+    "currency": "€",
+    "no_results": "Keine Reiseziele gefunden. Versuchen Sie eine andere Suche."
+  },
+  "testimonials": {
+    "label": "Gästebewertungen",
+    "title": "Was unsere Gäste sagen",
+    "subtitle": "Vertraut von Tausenden internationaler Reisender.",
+    "reviews": [
+      {
+        "name": "James Thornton",
+        "country": "Vereinigtes Königreich",
+        "flag": "🇬🇧",
+        "rating": 5,
+        "text": "Absolut tadelloser Service von Anfang bis Ende. Der Fahrer wartete auf uns, sobald wir durch die Ankunft kamen. Der Vito war makellos. Wir werden Noble jedes Mal nutzen."
+      },
+      {
+        "name": "Monika Schreiber",
+        "country": "Deutschland",
+        "flag": "🇩🇪",
+        "rating": 5,
+        "text": "Wir waren begeistert! Pünktlich, professionell und das Fahrzeug war makellos sauber. Die Kommunikation lief reibungslos. Absolute Empfehlung!"
+      },
+      {
+        "name": "Anastasia Volkov",
+        "country": "Russland",
+        "flag": "🇷🇺",
+        "rating": 5,
+        "text": "Великолепный сервис! Водитель встретил нас с табличкой, автомобиль был в идеальном состоянии. Обязательно закажем снова!"
+      },
+      {
+        "name": "Sophie Laurent",
+        "country": "Frankreich",
+        "flag": "🇫🇷",
+        "rating": 5,
+        "text": "Service exceptionnel! Le chauffeur était très professionnel et le véhicule d'un luxe incroyable. Je recommande vivement Noble."
+      },
+      {
+        "name": "Mehmet Yıldız",
+        "country": "Türkei",
+        "flag": "🇹🇷",
+        "rating": 5,
+        "text": "Der beste Transferservice in Antalya. Pünktlich, sauberes Fahrzeug, professioneller Fahrer. Unbedingt empfehlenswert."
+      },
+      {
+        "name": "David Okafor",
+        "country": "Vereinigte Arabische Emirate",
+        "flag": "🇦🇪",
+        "rating": 5,
+        "text": "Reine Exzellenz. Von der ersten WhatsApp-Nachricht bis zum letzten Absatz wurde alles mit Präzision gehandhabt."
+      },
+      {
+        "name": "Isabella Rossi",
+        "country": "Italien",
+        "flag": "🇮🇹",
+        "rating": 5,
+        "text": "Servizio impeccabile! L'autista ci attendeva puntuale. L'auto era lussuosa e confortevole."
+      },
+      {
+        "name": "Henrik Larsson",
+        "country": "Schweden",
+        "flag": "🇸🇪",
+        "rating": 5,
+        "text": "Bester Transferservice, den wir je irgendwo auf der Welt genutzt haben. Noble VIP ist in einer völlig anderen Liga."
+      }
+    ]
+  },
+  "booking": {
+    "label": "Transfer buchen",
+    "title": "Bereit für Ihren Transfer?",
+    "subtitle": "Buchen Sie direkt über WhatsApp für sofortige Bestätigung. Keine Formulare, kein Warten — nur nahtloser Service.",
+    "feature_1": "Sofortige WhatsApp-Bestätigung",
+    "feature_2": "Begrüßung bei der Ankunft",
+    "feature_3": "Echtzeit-Flugverfolgung",
+    "feature_4": "Festpreis — keine Überraschungen",
+    "cta": "Jetzt über WhatsApp kontaktieren",
+    "cta_sub": "Wir antworten normalerweise innerhalb von Minuten",
+    "vehicle": "Mercedes Vito VIP",
+    "vehicle_sub": "Unser exklusives Transferfahrzeug"
+  },
+  "footer": {
+    "tagline": "Antalyas premier VIP-Flughafentransferservice.",
+    "links_title": "Schnelllinks",
+    "contact_title": "Kontakt",
+    "legal_title": "Rechtliches",
+    "privacy": "Datenschutzrichtlinie",
+    "terms": "Nutzungsbedingungen",
+    "rights": "© 2024 Noble VIP Transfer. Alle Rechte vorbehalten.",
+    "whatsapp": "WhatsApp",
+    "instagram": "Instagram",
+    "phone": "+90 532 333 04 74"
+  },
+  "floating": {
+    "whatsapp_tooltip": "Per WhatsApp buchen",
+    "instagram_tooltip": "Auf Instagram folgen"
+  },
+  "whatsapp_message": "Hallo, ich möchte einen VIP-Transfer mit Noble VIP Transfer buchen."
+}
