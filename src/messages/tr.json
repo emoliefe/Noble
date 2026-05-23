@@ -174,5 +174,33 @@
     "whatsapp_tooltip": "WhatsApp ile Rezervasyon",
     "instagram_tooltip": "Instagram'da Takip Et"
   },
-  "whatsapp_message": "Merhaba, Noble VIP Transfer ile transfer rezervasyonu yapmak istiyorum."
+  "whatsapp_message": "Merhaba, Noble VIP Transfer ile transfer rezervasyonu yapmak istiyorum.",
+  "bookingForm": {
+    "label": "Transferinizi Rezerve Edin",
+    "title": "Yolculuğunuzu Ayırtın",
+    "subtitle": "Aşağıdaki bilgileri doldurun, rezervasyonunuzu WhatsApp üzerinden anında onaylayalım.",
+    "name": "Ad Soyad",
+    "name_ph": "Adınız ve soyadınız",
+    "phone": "Telefon Numarası",
+    "phone_ph": "+90 555 000 00 00",
+    "passengers": "Yolcu Sayısı",
+    "passengers_ph": "1 – 7",
+    "date": "Alış Tarihi ve Saati",
+    "vehicle": "Araç",
+    "pickup": "Kalkış Noktası",
+    "dropoff": "Varış Destinasyonu",
+    "select_dest": "Destinasyon seçin…",
+    "price_label": "Tahmini Fiyat",
+    "submit": "WhatsApp ile Gönder",
+    "fill_all": "Lütfen göndermeden önce tüm alanları doldurun.",
+    "privacy_note": "Bilgileriniz yalnızca WhatsApp'ımıza iletilir — hiçbir zaman saklanmaz.",
+    "msg_name": "Ad Soyad",
+    "msg_phone": "Telefon",
+    "msg_passengers": "Yolcu Sayısı",
+    "msg_date": "Tarih & Saat",
+    "msg_vehicle": "Araç",
+    "msg_pickup": "Kalkış",
+    "msg_dropoff": "Varış",
+    "msg_price": "Fiyat"
+  }
 }

@@ -7,36 +7,44 @@ import { ArrowRight } from 'lucide-react';
 import { getWhatsAppURL } from '@/lib/pricing';
 
 const destinationImages: Record<string, { src: string; price: number }> = {
+  // Lara — luxury beach resort east of Antalya city
   lara: {
-    src: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=85',
+    src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=85',
     price: 40,
   },
+  // Belek — world-famous golf & luxury resort area
   belek: {
     src: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=85',
     price: 45,
   },
+  // Kemer — marina & Taurus mountain coastline
   kemer: {
-    src: 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?auto=format&fit=crop&w=800&q=85',
+    src: 'https://images.unsplash.com/photo-1596386461350-326ccb383e9f?auto=format&fit=crop&w=800&q=85',
     price: 55,
   },
+  // Side — ancient ruins & turquoise coast
   side: {
     src: 'https://images.unsplash.com/photo-1555993539-1732b0258235?auto=format&fit=crop&w=800&q=85',
     price: 55,
   },
+  // Alanya — castle fortress & Mediterranean coast
   alanya: {
-    src: 'https://images.unsplash.com/photo-1551882547-ff40c63fe2e2?auto=format&fit=crop&w=800&q=85',
+    src: 'https://images.unsplash.com/photo-1602264189346-8e5e3b8a78e5?auto=format&fit=crop&w=800&q=85',
     price: 80,
   },
+  // Adrasan — secluded turquoise bay near Olympos
   adrasan: {
-    src: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=800&q=85',
+    src: 'https://images.unsplash.com/photo-1439066290691-dbe9ad1b0290?auto=format&fit=crop&w=800&q=85',
     price: 95,
   },
+  // Kaleiçi — Antalya old town, Roman harbor, Ottoman architecture
   'kaleiçi': {
-    src: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=85',
+    src: 'https://images.unsplash.com/photo-1601059823836-b82dab78e3af?auto=format&fit=crop&w=800&q=85',
     price: 40,
   },
+  // Konyaaltı — pebble beach & city coast west of Antalya
   'konyaaltı': {
-    src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=85',
+    src: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=800&q=85',
     price: 40,
   },
 };

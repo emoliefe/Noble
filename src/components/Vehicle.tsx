@@ -76,7 +76,7 @@ export default function Vehicle() {
           >
             <div className="relative rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1556800572-1b8aeef2c54f?auto=format&fit=crop&w=1400&q=85"
+                src="https://images.unsplash.com/photo-1549317661-bd32c8ce0105?auto=format&fit=crop&w=1400&q=85"
                 alt="Mercedes Vito VIP"
                 width={1400}
                 height={800}
@@ -91,23 +91,6 @@ export default function Vehicle() {
                 }}
               />
             </div>
-
-            {/* Second smaller image — interior */}
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute -bottom-6 right-4 md:right-8 w-36 md:w-48 rounded-xl overflow-hidden shadow-noble border-2 border-white"
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=400&q=85"
-                alt="Mercedes Vito VIP Interior"
-                width={400}
-                height={280}
-                className="w-full h-auto object-cover"
-              />
-            </motion.div>
           </motion.div>
 
           {/* Specs — takes 2 cols */}

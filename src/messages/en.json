@@ -174,5 +174,33 @@
     "whatsapp_tooltip": "Book via WhatsApp",
     "instagram_tooltip": "Follow us on Instagram"
   },
-  "whatsapp_message": "Hello, I would like to book a VIP transfer with Noble VIP Transfer."
+  "whatsapp_message": "Hello, I would like to book a VIP transfer with Noble VIP Transfer.",
+  "bookingForm": {
+    "label": "Book Your Transfer",
+    "title": "Reserve Your Journey",
+    "subtitle": "Fill in the details below and we'll confirm your booking instantly via WhatsApp.",
+    "name": "Full Name",
+    "name_ph": "Your full name",
+    "phone": "Phone Number",
+    "phone_ph": "+1 234 567 8900",
+    "passengers": "Passengers",
+    "passengers_ph": "1 – 7",
+    "date": "Pickup Date & Time",
+    "vehicle": "Vehicle",
+    "pickup": "Pickup Location",
+    "dropoff": "Drop-off Destination",
+    "select_dest": "Select destination…",
+    "price_label": "Estimated Price",
+    "submit": "Send via WhatsApp",
+    "fill_all": "Please fill out all fields before sending.",
+    "privacy_note": "Your details are sent only to our WhatsApp — never stored.",
+    "msg_name": "Name",
+    "msg_phone": "Phone",
+    "msg_passengers": "Passengers",
+    "msg_date": "Date & Time",
+    "msg_vehicle": "Vehicle",
+    "msg_pickup": "Pickup",
+    "msg_dropoff": "Drop-off",
+    "msg_price": "Price"
+  }
 }

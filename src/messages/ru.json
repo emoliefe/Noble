@@ -174,5 +174,33 @@
     "whatsapp_tooltip": "Забронировать через WhatsApp",
     "instagram_tooltip": "Подписаться в Instagram"
   },
-  "whatsapp_message": "Здравствуйте, я хотел бы забронировать VIP-трансфер с Noble VIP Transfer."
+  "whatsapp_message": "Здравствуйте, я хотел бы забронировать VIP-трансфер с Noble VIP Transfer.",
+  "bookingForm": {
+    "label": "Забронировать трансфер",
+    "title": "Зарезервируйте поездку",
+    "subtitle": "Заполните форму, и мы мгновенно подтвердим бронирование через WhatsApp.",
+    "name": "Полное имя",
+    "name_ph": "Ваше полное имя",
+    "phone": "Номер телефона",
+    "phone_ph": "+7 900 000 00 00",
+    "passengers": "Пассажиры",
+    "passengers_ph": "1 – 7",
+    "date": "Дата и время подачи",
+    "vehicle": "Автомобиль",
+    "pickup": "Место посадки",
+    "dropoff": "Место назначения",
+    "select_dest": "Выберите направление…",
+    "price_label": "Ориентировочная цена",
+    "submit": "Отправить в WhatsApp",
+    "fill_all": "Пожалуйста, заполните все поля перед отправкой.",
+    "privacy_note": "Ваши данные передаются только в наш WhatsApp — никогда не сохраняются.",
+    "msg_name": "Имя",
+    "msg_phone": "Телефон",
+    "msg_passengers": "Пассажиры",
+    "msg_date": "Дата и время",
+    "msg_vehicle": "Автомобиль",
+    "msg_pickup": "Место посадки",
+    "msg_dropoff": "Место назначения",
+    "msg_price": "Цена"
+  }
 }

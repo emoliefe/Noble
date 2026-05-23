@@ -6,6 +6,7 @@ import About from '@/components/About';
 import Vehicle from '@/components/Vehicle';
 import Destinations from '@/components/Destinations';
 import Pricing from '@/components/Pricing';
+import BookingForm from '@/components/BookingForm';
 import Testimonials from '@/components/Testimonials';
 import BookingCTA from '@/components/BookingCTA';
 import Footer from '@/components/Footer';
@@ -23,6 +24,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
       <Vehicle />
       <Destinations />
       <Pricing />
+      <BookingForm />
       <Testimonials />
       <BookingCTA />
       <Footer />

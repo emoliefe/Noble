@@ -263,7 +263,7 @@ export default function Hero() {
             {/* Car Image */}
             <div className="relative mx-auto" style={{ maxWidth: '820px' }}>
               <Image
-                src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1600&q=85"
+                src="https://images.unsplash.com/photo-1549317661-bd32c8ce0105?auto=format&fit=crop&w=1600&q=85"
                 alt="Mercedes Vito VIP — Noble VIP Transfer"
                 width={1600}
                 height={900}

@@ -174,5 +174,33 @@
     "whatsapp_tooltip": "Per WhatsApp buchen",
     "instagram_tooltip": "Auf Instagram folgen"
   },
-  "whatsapp_message": "Hallo, ich möchte einen VIP-Transfer mit Noble VIP Transfer buchen."
+  "whatsapp_message": "Hallo, ich möchte einen VIP-Transfer mit Noble VIP Transfer buchen.",
+  "bookingForm": {
+    "label": "Transfer buchen",
+    "title": "Ihre Reise reservieren",
+    "subtitle": "Füllen Sie das Formular aus und wir bestätigen Ihre Buchung sofort per WhatsApp.",
+    "name": "Vollständiger Name",
+    "name_ph": "Ihr vollständiger Name",
+    "phone": "Telefonnummer",
+    "phone_ph": "+49 123 456 7890",
+    "passengers": "Passagiere",
+    "passengers_ph": "1 – 7",
+    "date": "Abholdatum und -uhrzeit",
+    "vehicle": "Fahrzeug",
+    "pickup": "Abholort",
+    "dropoff": "Zieldestination",
+    "select_dest": "Destination auswählen…",
+    "price_label": "Geschätzter Preis",
+    "submit": "Per WhatsApp senden",
+    "fill_all": "Bitte füllen Sie alle Felder aus, bevor Sie absenden.",
+    "privacy_note": "Ihre Daten werden nur an unser WhatsApp weitergeleitet — niemals gespeichert.",
+    "msg_name": "Name",
+    "msg_phone": "Telefon",
+    "msg_passengers": "Passagiere",
+    "msg_date": "Datum & Uhrzeit",
+    "msg_vehicle": "Fahrzeug",
+    "msg_pickup": "Abholung",
+    "msg_dropoff": "Ziel",
+    "msg_price": "Preis"
+  }
 }
