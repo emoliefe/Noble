@@ -1,10 +1,3 @@
-import createMiddleware from 'next-intl/middleware';
-import { routing } from './src/i18n/routing';
-
-export default createMiddleware(routing);
-
-export const config = {
-  matcher: [
-    '/((?!api|_next|_vercel|.*\\..*).*)',
-  ],
-};
+// Middleware devre dışı — GitHub Pages static export kullanılıyor.
+// Locale yönlendirmesi generateStaticParams + root redirect ile yapılıyor.
+export {};
