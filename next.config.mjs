@@ -7,6 +7,10 @@ const nextConfig = {
   output: 'export',
   trailingSlash: true,
   basePath: '/Noble',
+  eslint: {
+    // ESLint checked separately in CI; skip during Next.js build to avoid plugin conflicts
+    ignoreDuringBuilds: true,
+  },
   images: {
     unoptimized: true,
     remotePatterns: [
