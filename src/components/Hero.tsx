@@ -13,11 +13,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 const containerVariants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.13, delayChildren: 0.4 } },
+  show: { transition: { staggerChildren: 0.11, delayChildren: 0.1 } },
 };
 const itemVariants = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] } },
 };
 
 const trustStats = [
@@ -33,221 +33,194 @@ export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
   const imgRef  = useRef<HTMLImageElement>(null);
 
-  /* Subtle Ken Burns parallax on background image */
   useEffect(() => {
     if (reducedMotion || !heroRef.current || !imgRef.current) return;
 
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        imgRef.current,
-        { scale: 1.06, y: '0%' },
-        {
-          scale: 1.0,
-          y: '-4%',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 2,
-          },
-        }
-      );
+      gsap.to(imgRef.current, {
+        y: '-5%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.8,
+        },
+      });
     }, heroRef);
 
     return () => ctx.revert();
   }, [reducedMotion]);
 
   return (
-    /* h-[100svh] + overflow-hidden → true full-screen, zero bleed */
+    /*
+     * flex-col: text block on top, image below
+     * min-h-[100svh]: section fills the full viewport
+     * overflow-x-hidden: prevents any accidental horizontal scroll
+     */
     <section
       ref={heroRef}
-      className="relative h-[100svh] min-h-[580px] overflow-hidden"
+      className="flex flex-col min-h-[100svh] overflow-x-hidden"
+      style={{ background: 'linear-gradient(180deg, #FFFFFF 0%, #F7F5F1 55%, #F5F3EF 100%)' }}
     >
 
-      {/* ── Full-bleed background image ── */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        ref={imgRef}
-        src={img('/images/vito-hero.jpg')}
-        alt="Noble VIP Transfer — Mercedes Vito"
-        className="absolute inset-0 w-full h-full object-cover object-center"
-        fetchPriority="high"
-      />
-
-      {/* ── Cinematic gradient overlays ── */}
-
-      {/* Main overlay — bottom-heavy so text reads clearly */}
+      {/* ── Subtle background texture ── */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 pointer-events-none opacity-[0.012]"
         style={{
-          background:
-            'linear-gradient(to top, rgba(4,3,2,0.88) 0%, rgba(4,3,2,0.55) 38%, rgba(4,3,2,0.18) 65%, transparent 100%)',
+          backgroundImage:
+            'linear-gradient(rgba(0,0,0,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,1) 1px, transparent 1px)',
+          backgroundSize: '80px 80px',
         }}
       />
 
-      {/* Left vignette — keeps focus on text column */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(to right, rgba(4,3,2,0.35) 0%, transparent 55%)',
-        }}
-      />
+      {/* ─────────────────────────────────────────────
+          TEXT BLOCK — inside section-container
+          (padded, centered, max-w-[1280px])
+          ───────────────────────────────────────────── */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="section-container relative z-10 flex flex-col items-center text-center pt-28 pb-6 md:pb-8"
+      >
 
-      {/* Top vignette — navbar legibility */}
-      <div
-        className="absolute top-0 left-0 right-0 h-36 pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(to bottom, rgba(4,3,2,0.45) 0%, transparent 100%)',
-        }}
-      />
+        {/* Eyebrow */}
+        <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
+          <span className="w-7 h-px bg-noble-gold/60" />
+          <span className="section-label">{t('tagline')}</span>
+          <span className="w-7 h-px bg-noble-gold/60" />
+        </motion.div>
 
-      {/* ── Content — anchored to viewport bottom ── */}
-      <div className="relative z-10 h-full flex flex-col justify-end">
-        <div className="section-container pb-14 md:pb-20">
-
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="show"
-            className="max-w-2xl"
+        {/* Main headline */}
+        <motion.h1
+          variants={itemVariants}
+          className="font-cormorant font-light text-noble-charcoal leading-[0.9] mb-5"
+          style={{
+            fontSize: 'clamp(3.5rem, 8.5vw, 9rem)',
+            letterSpacing: '-0.025em',
+          }}
+        >
+          <span className="block">Noble</span>
+          <span
+            className="block italic text-noble-gold"
+            style={{ fontSize: '0.83em' }}
           >
+            VIP Transfer
+          </span>
+        </motion.h1>
 
-            {/* Eyebrow */}
-            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
-              <span className="w-8 h-px bg-noble-gold" style={{ opacity: 0.75 }} />
-              <span
-                className="font-inter font-medium tracking-[0.2em] uppercase"
-                style={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.65)' }}
-              >
-                {t('tagline')}
-              </span>
-            </motion.div>
+        {/* Gold divider */}
+        <motion.div variants={itemVariants} className="divider-gold mb-5" />
 
-            {/* Headline */}
-            <motion.h1
-              variants={itemVariants}
-              className="font-cormorant font-light text-white leading-[0.88] mb-6"
-              style={{
-                fontSize: 'clamp(3.75rem, 9vw, 9rem)',
-                letterSpacing: '-0.025em',
-              }}
-            >
-              <span className="block">Noble</span>
-              <span
-                className="block italic"
-                style={{ fontSize: '0.82em', color: '#D4AA6A' }}
-              >
-                VIP Transfer
-              </span>
-            </motion.h1>
+        {/* Subtitle */}
+        <motion.p
+          variants={itemVariants}
+          className="font-inter font-light text-noble-gray-2 max-w-md leading-relaxed mb-8"
+          style={{ fontSize: 'clamp(0.9375rem, 1.6vw, 1.0625rem)' }}
+        >
+          {t('subtitle')}
+        </motion.p>
 
-            {/* Gold rule */}
-            <motion.div
-              variants={itemVariants}
-              className="mb-6"
-              style={{
-                width: '3rem',
-                height: '1px',
-                background: 'linear-gradient(90deg, #B8924A, transparent)',
-              }}
-            />
+        {/* CTA buttons */}
+        <motion.div
+          variants={itemVariants}
+          className="flex flex-col sm:flex-row items-center gap-3 mb-9 w-full sm:w-auto"
+        >
+          <motion.button
+            onClick={() =>
+              document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })
+            }
+            className="btn-gold flex items-center gap-2 w-full sm:w-auto justify-center"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+          >
+            {t('cta_book')}
+            <ArrowRight size={15} />
+          </motion.button>
 
-            {/* Subtitle */}
-            <motion.p
-              variants={itemVariants}
-              className="font-inter font-light leading-relaxed mb-9"
-              style={{
-                fontSize: 'clamp(0.9375rem, 1.7vw, 1.0625rem)',
-                color: 'rgba(255,255,255,0.68)',
-                maxWidth: '30rem',
-              }}
-            >
-              {t('subtitle')}
-            </motion.p>
+          <motion.button
+            onClick={() =>
+              document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })
+            }
+            className="btn-ghost flex items-center gap-2 w-full sm:w-auto justify-center"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+          >
+            {t('cta_prices')}
+          </motion.button>
+        </motion.div>
 
-            {/* CTAs */}
-            <motion.div
-              variants={itemVariants}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-10"
-            >
-              {/* Primary — gold */}
-              <motion.button
-                onClick={() =>
-                  document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })
-                }
-                className="btn-gold flex items-center justify-center gap-2"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-              >
-                {t('cta_book')}
-                <ArrowRight size={15} />
-              </motion.button>
-
-              {/* Secondary — glass on dark */}
-              <motion.button
-                onClick={() =>
-                  document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })
-                }
-                className="flex items-center justify-center gap-2 font-inter font-medium rounded-lg transition-all duration-300"
-                style={{
-                  fontSize: '0.9375rem',
-                  letterSpacing: '0.04em',
-                  padding: '1rem 2.5rem',
-                  color: 'rgba(255,255,255,0.82)',
-                  border: '1px solid rgba(255,255,255,0.22)',
-                  background: 'rgba(255,255,255,0.06)',
-                  backdropFilter: 'blur(8px)',
-                }}
-                whileHover={{
-                  scale: 1.02,
-                  backgroundColor: 'rgba(255,255,255,0.12)',
-                  borderColor: 'rgba(255,255,255,0.38)',
-                }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-              >
-                {t('cta_prices')}
-              </motion.button>
-            </motion.div>
-
-            {/* Trust stats */}
-            <motion.div
-              variants={itemVariants}
-              className="flex items-center gap-7 flex-wrap"
-            >
-              {trustStats.map((stat, i) => (
-                <div key={i} className="flex items-center gap-3.5">
-                  {i > 0 && (
-                    <div
-                      className="w-px h-7 flex-shrink-0"
-                      style={{ background: 'rgba(255,255,255,0.15)' }}
-                    />
-                  )}
-                  <div>
-                    <div
-                      className="font-cormorant font-light text-white leading-none"
-                      style={{ fontSize: '1.25rem' }}
-                    >
-                      {stat.value}
-                    </div>
-                    <div
-                      className="font-inter tracking-[0.12em] uppercase mt-0.5"
-                      style={{ fontSize: '0.625rem', color: 'rgba(255,255,255,0.45)' }}
-                    >
-                      {stat.label}
-                    </div>
-                  </div>
+        {/* Trust mini-stats */}
+        <motion.div
+          variants={itemVariants}
+          className="flex items-center gap-7 flex-wrap justify-center"
+        >
+          {trustStats.map((stat, i) => (
+            <div key={i} className="flex items-center gap-3.5">
+              {i > 0 && <div className="w-px h-7 bg-noble-gold/20" />}
+              <div>
+                <div className="font-cormorant text-xl font-light text-noble-charcoal leading-none">
+                  {stat.value}
                 </div>
-              ))}
-            </motion.div>
+                <div className="font-inter text-[10px] tracking-[0.12em] uppercase text-noble-gray-3 mt-0.5">
+                  {stat.label}
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
 
-          </motion.div>
-        </div>
-      </div>
+      </motion.div>
+
+      {/* ─────────────────────────────────────────────
+          CAR IMAGE — full viewport width, NO padding
+          Lives OUTSIDE section-container so it bleeds
+          edge to edge. flex-1 fills remaining height.
+          ───────────────────────────────────────────── */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        className="relative w-full flex-1 overflow-hidden"
+        style={{ minHeight: '40vh', background: '#F5F3EF' }}
+      >
+
+        {/* Atmospheric gold glow behind the car */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-3/4 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse 65% 55% at 50% 100%, rgba(184,146,74,0.11) 0%, transparent 70%)',
+            filter: 'blur(24px)',
+          }}
+        />
+
+        {/* The car — w-full so it fills the entire viewport width */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          ref={imgRef}
+          src={img('/images/vito-hero.jpg')}
+          alt="Mercedes Vito VIP — Noble VIP Transfer"
+          className="w-full h-full object-contain object-bottom block"
+          fetchPriority="high"
+          style={{
+            filter: 'drop-shadow(0 -4px 24px rgba(0,0,0,0.07))',
+          }}
+        />
+
+        {/* Bottom gradient — blends into the next section */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-20 pointer-events-none"
+          style={{
+            background:
+              'linear-gradient(to top, #FAFAF8 0%, transparent 100%)',
+          }}
+        />
+
+      </motion.div>
 
     </section>
   );
