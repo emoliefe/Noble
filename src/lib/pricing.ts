@@ -4,7 +4,7 @@ export interface PriceEntry {
   region: string;
 }
 
-export const WHATSAPP_NUMBER = '905323330474';
+export const WHATSAPP_NUMBER = '905336561788';
 export const INSTAGRAM_URL = 'https://www.instagram.com/nobleviptransfer?utm_source=qr&igsh=ZDV6bmdqM2w4M3Rx';
 
 export function getWhatsAppURL(message: string): string {
