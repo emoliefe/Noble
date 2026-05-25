@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import { ArrowRight, ChevronDown } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -11,19 +11,15 @@ import { img } from '@/lib/paths';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* ─── Framer Motion variants ─────────────────────────────────── */
 const containerVariants = {
   hidden: {},
-  show: {
-    transition: { staggerChildren: 0.11, delayChildren: 0.1 },
-  },
+  show: { transition: { staggerChildren: 0.13, delayChildren: 0.4 } },
 };
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] } },
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] } },
 };
 
-/* ─── Mini trust stats ───────────────────────────────────────── */
 const trustStats = [
   { value: '4.9★', label: 'Rating' },
   { value: '5000+', label: 'Transfers' },
@@ -34,276 +30,225 @@ export default function Hero() {
   const t = useTranslations('hero');
   const reducedMotion = useReducedMotion();
 
-  const heroRef    = useRef<HTMLDivElement>(null);
-  const carRef     = useRef<HTMLDivElement>(null);
-  const textRef    = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const imgRef  = useRef<HTMLImageElement>(null);
 
-  /* ── GSAP scroll parallax (desktop only) ── */
+  /* Subtle Ken Burns parallax on background image */
   useEffect(() => {
-    if (reducedMotion || !heroRef.current) return;
+    if (reducedMotion || !heroRef.current || !imgRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Car drifts upward slowly as user scrolls away
-      if (carRef.current) {
-        gsap.to(carRef.current, {
-          y: 55,
+      gsap.fromTo(
+        imgRef.current,
+        { scale: 1.06, y: '0%' },
+        {
+          scale: 1.0,
+          y: '-4%',
           ease: 'none',
           scrollTrigger: {
             trigger: heroRef.current,
             start: 'top top',
             end: 'bottom top',
-            scrub: 1.6,
+            scrub: 2,
           },
-        });
-      }
-
-      // Text block drifts and fades as hero exits viewport
-      if (textRef.current) {
-        gsap.to(textRef.current, {
-          y: 45,
-          opacity: 0.2,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top top',
-            end: '55% top',
-            scrub: 1.1,
-          },
-        });
-      }
+        }
+      );
     }, heroRef);
 
     return () => ctx.revert();
   }, [reducedMotion]);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
-    /*
-     * overflow-x: hidden — prevents the atmospheric glow and decorative
-     * layers from causing horizontal scroll on any screen size.
-     * overflow-y is unrestricted so content can flow naturally on small screens.
-     */
+    /* h-[100svh] + overflow-hidden → true full-screen, zero bleed */
     <section
       ref={heroRef}
-      className="relative min-h-[100svh] overflow-x-hidden"
-      style={{
-        background: 'linear-gradient(150deg, #FFFFFF 0%, #F7F5F1 45%, #FAFAF8 100%)',
-      }}
+      className="relative h-[100svh] min-h-[580px] overflow-hidden"
     >
-      {/* ── Background decorations (all inset, no overflow) ── */}
+
+      {/* ── Full-bleed background image ── */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        ref={imgRef}
+        src={img('/images/vito-hero.jpg')}
+        alt="Noble VIP Transfer — Mercedes Vito"
+        className="absolute inset-0 w-full h-full object-cover object-center"
+        fetchPriority="high"
+      />
+
+      {/* ── Cinematic gradient overlays ── */}
+
+      {/* Main overlay — bottom-heavy so text reads clearly */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 90% 70% at 15% 50%, rgba(184,146,74,0.07) 0%, transparent 62%)',
+            'linear-gradient(to top, rgba(4,3,2,0.88) 0%, rgba(4,3,2,0.55) 38%, rgba(4,3,2,0.18) 65%, transparent 100%)',
         }}
       />
+
+      {/* Left vignette — keeps focus on text column */}
       <div
-        className="absolute top-0 right-0 w-1/2 h-full pointer-events-none"
+        className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(ellipse 85% 80% at 100% 35%, rgba(184,146,74,0.05) 0%, transparent 70%)',
+            'linear-gradient(to right, rgba(4,3,2,0.35) 0%, transparent 55%)',
         }}
       />
-      {/* Subtle grid texture */}
+
+      {/* Top vignette — navbar legibility */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.013]"
+        className="absolute top-0 left-0 right-0 h-36 pointer-events-none"
         style={{
-          backgroundImage:
-            'linear-gradient(rgba(0,0,0,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,1) 1px, transparent 1px)',
-          backgroundSize: '80px 80px',
+          background:
+            'linear-gradient(to bottom, rgba(4,3,2,0.45) 0%, transparent 100%)',
         }}
       />
 
-      {/*
-       * ── Main layout ──────────────────────────────────────────────
-       * Mobile  : flex-col   — text on top, car below
-       * Desktop : flex-row   — text left (52%), car right (48%)
-       *
-       * The section-container keeps everything within max-w-[1280px]
-       * with responsive horizontal padding — no 100vw tricks needed.
-       */}
-      <div className="section-container relative z-10 flex flex-col lg:flex-row lg:items-center min-h-[100svh] pt-24 pb-12 lg:py-0">
+      {/* ── Content — anchored to viewport bottom ── */}
+      <div className="relative z-10 h-full flex flex-col justify-end">
+        <div className="section-container pb-14 md:pb-20">
 
-        {/* ── LEFT / TEXT BLOCK ── */}
-        <motion.div
-          ref={textRef}
-          variants={containerVariants}
-          initial="hidden"
-          animate="show"
-          className="w-full lg:w-[52%] flex flex-col items-center lg:items-start text-center lg:text-left lg:pr-10 xl:pr-16"
-        >
-          {/* Eyebrow label */}
-          <motion.div variants={itemVariants} className="flex items-center gap-3 mb-5">
-            <span className="w-6 h-px bg-noble-gold/60" />
-            <span className="section-label">{t('tagline')}</span>
-            {/* Right line — mobile only (for centred layout symmetry) */}
-            <span className="w-6 h-px bg-noble-gold/60 lg:hidden" />
-          </motion.div>
-
-          {/* Main headline */}
-          <motion.h1
-            variants={itemVariants}
-            className="font-cormorant font-light text-noble-charcoal leading-[0.9] mb-5"
-            style={{
-              fontSize: 'clamp(3.25rem, 8vw, 8rem)',
-              letterSpacing: '-0.025em',
-            }}
-          >
-            <span className="block">Noble</span>
-            <span
-              className="block italic text-noble-gold"
-              style={{ fontSize: '0.83em' }}
-            >
-              VIP Transfer
-            </span>
-          </motion.h1>
-
-          {/* Gold divider */}
-          <motion.div variants={itemVariants} className="divider-gold mx-auto lg:mx-0 mb-5" />
-
-          {/* Subtitle */}
-          <motion.p
-            variants={itemVariants}
-            className="font-inter font-light text-noble-gray-2 max-w-sm lg:max-w-md leading-relaxed mb-8 lg:mb-10"
-            style={{ fontSize: 'clamp(0.9375rem, 1.6vw, 1.0625rem)' }}
-          >
-            {t('subtitle')}
-          </motion.p>
-
-          {/* CTA buttons */}
           <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row items-center lg:items-start gap-3 w-full sm:w-auto mb-10 lg:mb-12"
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+            className="max-w-2xl"
           >
-            <motion.button
-              onClick={() => scrollTo('booking-form')}
-              className="btn-gold flex items-center gap-2 w-full sm:w-auto justify-center"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-            >
-              {t('cta_book')}
-              <ArrowRight size={15} />
-            </motion.button>
 
-            <motion.button
-              onClick={() => scrollTo('pricing')}
-              className="btn-ghost flex items-center gap-2 w-full sm:w-auto justify-center"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-            >
-              {t('cta_prices')}
-            </motion.button>
-          </motion.div>
+            {/* Eyebrow */}
+            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-6">
+              <span className="w-8 h-px bg-noble-gold" style={{ opacity: 0.75 }} />
+              <span
+                className="font-inter font-medium tracking-[0.2em] uppercase"
+                style={{ fontSize: '0.6875rem', color: 'rgba(255,255,255,0.65)' }}
+              >
+                {t('tagline')}
+              </span>
+            </motion.div>
 
-          {/* Mini trust stats */}
-          <motion.div
-            variants={itemVariants}
-            className="flex items-center gap-6 sm:gap-8 flex-wrap justify-center lg:justify-start"
-          >
-            {trustStats.map((stat, i) => (
-              <div key={i} className="flex items-center gap-2.5">
-                <div
-                  className="w-px h-8 opacity-20"
-                  style={{ background: '#B8924A', display: i === 0 ? 'none' : 'block' }}
-                />
-                <div>
-                  <div className="font-cormorant text-[1.35rem] font-light text-noble-charcoal leading-none">
-                    {stat.value}
-                  </div>
-                  <div className="font-inter text-[10px] tracking-[0.12em] uppercase text-noble-gray-3 mt-0.5">
-                    {stat.label}
+            {/* Headline */}
+            <motion.h1
+              variants={itemVariants}
+              className="font-cormorant font-light text-white leading-[0.88] mb-6"
+              style={{
+                fontSize: 'clamp(3.75rem, 9vw, 9rem)',
+                letterSpacing: '-0.025em',
+              }}
+            >
+              <span className="block">Noble</span>
+              <span
+                className="block italic"
+                style={{ fontSize: '0.82em', color: '#D4AA6A' }}
+              >
+                VIP Transfer
+              </span>
+            </motion.h1>
+
+            {/* Gold rule */}
+            <motion.div
+              variants={itemVariants}
+              className="mb-6"
+              style={{
+                width: '3rem',
+                height: '1px',
+                background: 'linear-gradient(90deg, #B8924A, transparent)',
+              }}
+            />
+
+            {/* Subtitle */}
+            <motion.p
+              variants={itemVariants}
+              className="font-inter font-light leading-relaxed mb-9"
+              style={{
+                fontSize: 'clamp(0.9375rem, 1.7vw, 1.0625rem)',
+                color: 'rgba(255,255,255,0.68)',
+                maxWidth: '30rem',
+              }}
+            >
+              {t('subtitle')}
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-10"
+            >
+              {/* Primary — gold */}
+              <motion.button
+                onClick={() =>
+                  document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' })
+                }
+                className="btn-gold flex items-center justify-center gap-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+              >
+                {t('cta_book')}
+                <ArrowRight size={15} />
+              </motion.button>
+
+              {/* Secondary — glass on dark */}
+              <motion.button
+                onClick={() =>
+                  document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })
+                }
+                className="flex items-center justify-center gap-2 font-inter font-medium rounded-lg transition-all duration-300"
+                style={{
+                  fontSize: '0.9375rem',
+                  letterSpacing: '0.04em',
+                  padding: '1rem 2.5rem',
+                  color: 'rgba(255,255,255,0.82)',
+                  border: '1px solid rgba(255,255,255,0.22)',
+                  background: 'rgba(255,255,255,0.06)',
+                  backdropFilter: 'blur(8px)',
+                }}
+                whileHover={{
+                  scale: 1.02,
+                  backgroundColor: 'rgba(255,255,255,0.12)',
+                  borderColor: 'rgba(255,255,255,0.38)',
+                }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+              >
+                {t('cta_prices')}
+              </motion.button>
+            </motion.div>
+
+            {/* Trust stats */}
+            <motion.div
+              variants={itemVariants}
+              className="flex items-center gap-7 flex-wrap"
+            >
+              {trustStats.map((stat, i) => (
+                <div key={i} className="flex items-center gap-3.5">
+                  {i > 0 && (
+                    <div
+                      className="w-px h-7 flex-shrink-0"
+                      style={{ background: 'rgba(255,255,255,0.15)' }}
+                    />
+                  )}
+                  <div>
+                    <div
+                      className="font-cormorant font-light text-white leading-none"
+                      style={{ fontSize: '1.25rem' }}
+                    >
+                      {stat.value}
+                    </div>
+                    <div
+                      className="font-inter tracking-[0.12em] uppercase mt-0.5"
+                      style={{ fontSize: '0.625rem', color: 'rgba(255,255,255,0.45)' }}
+                    >
+                      {stat.label}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </motion.div>
+
           </motion.div>
-        </motion.div>
-
-        {/* ── RIGHT / CAR IMAGE ── */}
-        <motion.div
-          initial={{ opacity: 0, x: 32, scale: 0.97 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          transition={{ duration: 1.3, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full lg:flex-1 flex items-center justify-center mt-10 lg:mt-0"
-        >
-          <div ref={carRef} className="relative w-full max-w-lg lg:max-w-none">
-
-            {/* Atmospheric gold glow under car */}
-            <div
-              className="absolute inset-x-6 bottom-0 top-1/3 pointer-events-none"
-              style={{
-                background:
-                  'radial-gradient(ellipse 85% 55% at 50% 85%, rgba(184,146,74,0.18) 0%, transparent 70%)',
-                filter: 'blur(28px)',
-              }}
-            />
-
-            {/* Car image — plain <img> for reliable rendering in static export */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={img('/images/vito-hero.jpg')}
-              alt="Mercedes Vito VIP — Noble VIP Transfer"
-              className="relative z-10 w-full h-auto object-contain"
-              style={{
-                filter:
-                  'drop-shadow(0 20px 44px rgba(0,0,0,0.16)) drop-shadow(0 4px 10px rgba(0,0,0,0.09))',
-                maxHeight: 'clamp(38vh, 45vw, 62vh)',
-              }}
-              fetchPriority="high"
-            />
-
-            {/* Elliptical ground shadow */}
-            <div
-              className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none z-0"
-              style={{
-                width: '72%',
-                height: '18px',
-                background:
-                  'radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, transparent 70%)',
-                filter: 'blur(9px)',
-              }}
-            />
-          </div>
-        </motion.div>
+        </div>
       </div>
 
-      {/* ── Bottom fade-out gradient ── */}
-      <div
-        className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
-        style={{
-          background:
-            'linear-gradient(to top, rgba(250,250,248,0.85) 0%, transparent 100%)',
-        }}
-      />
-
-      {/* ── Scroll indicator ── */}
-      <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.6 }}
-        onClick={() => scrollTo('booking-form')}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 group cursor-pointer z-20"
-        aria-label="Scroll to booking form"
-      >
-        <span className="font-inter text-[10px] tracking-[0.22em] uppercase text-noble-gray-4 group-hover:text-noble-gold transition-colors duration-200">
-          Scroll
-        </span>
-        <motion.div
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <ChevronDown
-            size={13}
-            className="text-noble-gray-4 group-hover:text-noble-gold transition-colors duration-200"
-          />
-        </motion.div>
-      </motion.button>
     </section>
   );
 }
