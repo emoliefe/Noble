@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { CheckCircle } from 'lucide-react';
+import { img } from '@/lib/paths';
 
 const containerVariants = {
   hidden: {},
@@ -41,7 +42,7 @@ export default function About() {
           >
             <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
               <Image
-                src="/images/about-driver.jpg"
+                src={img('/images/about-driver.jpg')}
                 alt="Luxury VIP Transfer Service"
                 fill
                 className="object-cover"

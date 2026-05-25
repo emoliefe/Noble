@@ -3,18 +3,19 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { img } from '@/lib/paths';
 
 // Local review photos — mapped by index to match reviews array order
 // null = no photo uploaded for this reviewer (show initials)
 const reviewPhotos: (string | null)[] = [
-  '/images/IMG-20250517-WA0008.jpg',  // 0 James Thornton
-  '/images/IMG-20250422-WA0056.jpg',  // 1 Monika Schreiber
-  '/images/IMG-20250422-WA0054.jpg',  // 2 Anastasia Volkov
-  '/images/IMG-20250422-WA0053.jpg',  // 3 Sophie Laurent
-  '/images/IMG-20250422-WA0051.jpg',  // 4 Mehmet Yıldız
-  '/images/IMG-20250422-WA0052.jpg',  // 5 David Okafor
-  '/images/IMG-20250422-WA0049.jpg',  // 6 Isabella Rossi
-  null,                                // 7 Henrik Larsson — no photo
+  img('/images/IMG-20250517-WA0008.jpg'),  // 0 James Thornton
+  img('/images/IMG-20250422-WA0056.jpg'),  // 1 Monika Schreiber
+  img('/images/IMG-20250422-WA0054.jpg'),  // 2 Anastasia Volkov
+  img('/images/IMG-20250422-WA0053.jpg'),  // 3 Sophie Laurent
+  img('/images/IMG-20250422-WA0051.jpg'),  // 4 Mehmet Yıldız
+  img('/images/IMG-20250422-WA0052.jpg'),  // 5 David Okafor
+  img('/images/IMG-20250422-WA0049.jpg'),  // 6 Isabella Rossi
+  null,                                     // 7 Henrik Larsson — no photo
 ];
 
 const frostedBorder: React.CSSProperties = {

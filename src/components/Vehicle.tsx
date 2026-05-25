@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { getWhatsAppURL } from '@/lib/pricing';
+import { img } from '@/lib/paths';
 
 export default function Vehicle() {
   const t = useTranslations('vehicle');
@@ -76,7 +77,7 @@ export default function Vehicle() {
           >
             <div className="relative rounded-2xl overflow-hidden">
               <Image
-                src="/images/vito-vehicle.jpg"
+                src={img('/images/vito-vehicle.jpg')}
                 alt="Mercedes Vito VIP"
                 width={1400}
                 height={800}

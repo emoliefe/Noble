@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { ArrowRight, User, Phone, Users, Calendar, MapPin, Car, Send } from 'lucide-react';
 import { pricingData, getWhatsAppURL } from '@/lib/pricing';
+import { img } from '@/lib/paths';
 
 const frostedBorder = {
   borderRadius: 'inherit',
@@ -94,7 +95,7 @@ export default function BookingForm() {
           >
             <div className="relative rounded-2xl overflow-hidden aspect-[3/4] sticky top-24">
               <Image
-                src="/images/booking-transfer-scene.jpg"
+                src={img('/images/booking-transfer-scene.jpg')}
                 alt="Noble VIP Transfer"
                 fill
                 className="object-cover"

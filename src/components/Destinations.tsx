@@ -5,17 +5,18 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { getWhatsAppURL } from '@/lib/pricing';
+import { img } from '@/lib/paths';
 
 const destinationImages: Record<string, { src: string; price: number }> = {
-  lara:        { src: '/images/dest-lara.jpg',      price: 40 },
-  belek:       { src: '/images/dest-belek.jpg',     price: 45 },
-  kemer:       { src: '/images/dest-kemer.jpg',     price: 55 },
+  lara:        { src: img('/images/dest-lara.jpg'),      price: 40 },
+  belek:       { src: img('/images/dest-belek.jpg'),     price: 45 },
+  kemer:       { src: img('/images/dest-kemer.jpg'),     price: 55 },
   // Side: local photo not uploaded — CDN fallback
   side:        { src: 'https://images.unsplash.com/photo-1555993539-1732b0258235?auto=format&fit=crop&w=800&q=85', price: 55 },
-  alanya:      { src: '/images/dest-alanya.jpg',    price: 80 },
-  adrasan:     { src: '/images/dest-adrasan.jpg',   price: 95 },
-  'kaleiçi':   { src: '/images/dest-kaleici.jpg',   price: 40 },
-  'konyaaltı': { src: '/images/dest-konyaalti.jpg', price: 40 },
+  alanya:      { src: img('/images/dest-alanya.jpg'),    price: 80 },
+  adrasan:     { src: img('/images/dest-adrasan.jpg'),   price: 95 },
+  'kaleiçi':   { src: img('/images/dest-kaleici.jpg'),   price: 40 },
+  'konyaaltı': { src: img('/images/dest-konyaalti.jpg'), price: 40 },
 };
 
 // Frosted glass border overlay — applied on each card image

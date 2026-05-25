@@ -8,6 +8,7 @@ import { ArrowRight, ChevronDown } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { img } from '@/lib/paths';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -261,7 +262,7 @@ export default function Hero() {
             {/* Car Image */}
             <div className="relative mx-auto" style={{ maxWidth: '820px' }}>
               <Image
-                src="/images/vito-hero.jpg"
+                src={img('/images/vito-hero.jpg')}
                 alt="Mercedes Vito VIP — Noble VIP Transfer"
                 width={1600}
                 height={900}
