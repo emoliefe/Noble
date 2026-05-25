@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
+
 import { ArrowRight, User, Phone, Users, Calendar, MapPin, Car, Send } from 'lucide-react';
 import { pricingData, getWhatsAppURL } from '@/lib/pricing';
 import { img } from '@/lib/paths';
@@ -94,12 +94,12 @@ export default function BookingForm() {
             className="hidden lg:block relative"
           >
             <div className="relative rounded-2xl overflow-hidden aspect-[3/4] sticky top-24">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={img('/images/booking-transfer-scene.jpg')}
                 alt="Noble VIP Transfer"
-                fill
-                className="object-cover"
-                sizes="50vw"
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
               />
               {/* Dark gradient overlay */}
               <div

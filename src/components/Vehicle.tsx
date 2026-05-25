@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
+
 import { ArrowRight } from 'lucide-react';
 import { getWhatsAppURL } from '@/lib/pricing';
 import { img } from '@/lib/paths';
@@ -76,13 +76,12 @@ export default function Vehicle() {
             className="lg:col-span-3 relative"
           >
             <div className="relative rounded-2xl overflow-hidden">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={img('/images/vito-vehicle.jpg')}
                 alt="Mercedes Vito VIP"
-                width={1400}
-                height={800}
                 className="w-full h-auto object-cover"
-                sizes="(max-width: 1024px) 100vw, 60vw"
+                loading="lazy"
               />
               {/* Frosted glass border */}
               <div

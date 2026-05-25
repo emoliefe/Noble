@@ -3,7 +3,6 @@
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -160,10 +159,10 @@ export default function Hero() {
       />
 
       {/* Main content */}
-      <div className="relative z-10 w-full section-container pt-28 pb-16 flex flex-col items-center">
+      <div className="relative z-10 w-full section-container pt-28 pb-0 flex flex-col items-center">
 
         {/* Text Block */}
-        <div ref={textRef} className="text-center mb-8 md:mb-12">
+        <div ref={textRef} className="text-center mb-4 md:mb-6">
           {/* Eyebrow label */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
@@ -237,13 +236,17 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Car Section */}
+        {/* Car Section — full-bleed cinematic */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96, y: 30 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-4xl mx-auto"
-          style={{ perspective: '1200px' }}
+          className="relative w-full"
+          style={{
+            width: '100vw',
+            marginLeft: 'calc(-50vw + 50%)',
+            perspective: '1200px',
+          }}
         >
           {/* Car wrapper with 3D transform */}
           <div
@@ -253,24 +256,23 @@ export default function Hero() {
           >
             {/* Atmospheric glow behind car */}
             <div
-              className="absolute inset-x-12 bottom-0 top-1/4 rounded-full blur-3xl opacity-20 pointer-events-none"
+              className="absolute inset-x-8 bottom-0 top-1/4 rounded-full blur-3xl opacity-20 pointer-events-none"
               style={{
                 background: 'radial-gradient(ellipse at center, rgba(184,146,74,0.5) 0%, transparent 70%)',
               }}
             />
 
             {/* Car Image */}
-            <div className="relative mx-auto" style={{ maxWidth: '820px' }}>
-              <Image
+            <div className="relative mx-auto max-w-5xl px-0 md:px-6">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={img('/images/vito-hero.jpg')}
                 alt="Mercedes Vito VIP — Noble VIP Transfer"
-                width={1600}
-                height={900}
-                className="w-full h-auto object-contain drop-shadow-2xl"
+                className="w-full h-auto object-contain"
                 style={{
-                  filter: 'drop-shadow(0 40px 80px rgba(0,0,0,0.18)) drop-shadow(0 8px 20px rgba(0,0,0,0.10))',
+                  filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.20)) drop-shadow(0 6px 16px rgba(0,0,0,0.12))',
                 }}
-                priority
+                fetchPriority="high"
               />
               {/* Frosted glass border */}
               <div
@@ -303,13 +305,14 @@ export default function Hero() {
           <div
             className="absolute left-1/2 -translate-x-1/2 bottom-0 pointer-events-none"
             style={{
-              width: '70%',
-              height: '30px',
+              width: '60%',
+              height: '24px',
               background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.18) 0%, transparent 70%)',
-              filter: 'blur(12px)',
+              filter: 'blur(10px)',
             }}
           />
         </motion.div>
+        <div className="pb-10 md:pb-16" />
       </div>
 
       {/* Bottom fog gradient */}

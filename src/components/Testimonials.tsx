@@ -2,11 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { img } from '@/lib/paths';
 
 // Local review photos — mapped by index to match reviews array order
-// null = no photo uploaded for this reviewer (show initials)
 const reviewPhotos: (string | null)[] = [
   img('/images/IMG-20250517-WA0008.jpg'),  // 0 James Thornton
   img('/images/IMG-20250422-WA0056.jpg'),  // 1 Monika Schreiber
@@ -15,7 +13,7 @@ const reviewPhotos: (string | null)[] = [
   img('/images/IMG-20250422-WA0051.jpg'),  // 4 Mehmet Yıldız
   img('/images/IMG-20250422-WA0052.jpg'),  // 5 David Okafor
   img('/images/IMG-20250422-WA0049.jpg'),  // 6 Isabella Rossi
-  null,                                     // 7 Henrik Larsson — no photo
+  img('/images/transfer-22.jpeg'),         // 7 Henrik Larsson
 ];
 
 const frostedBorder: React.CSSProperties = {
@@ -58,19 +56,19 @@ function StarRating({ rating }: { rating: number }) {
 function ReviewCard({ review, photoSrc }: { review: Review; photoSrc: string | null }) {
   return (
     <div
-      className="flex-shrink-0 w-72 sm:w-80 md:w-88 card-glass rounded-2xl overflow-hidden mx-3"
+      className="flex-shrink-0 w-72 sm:w-80 md:w-96 card-glass rounded-2xl overflow-hidden mx-3"
       style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.06)' }}
     >
       {/* Photo area — full width, above text */}
       <div className="relative h-48 w-full overflow-hidden">
         {photoSrc ? (
           <>
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={photoSrc}
               alt={review.name}
-              fill
-              className="object-cover object-center"
-              sizes="(max-width: 640px) 288px, (max-width: 768px) 320px, 352px"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              loading="lazy"
             />
             {/* Frosted glass border on photo */}
             <div className="absolute inset-0 pointer-events-none z-10" style={frostedBorder} />

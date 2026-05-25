@@ -35,6 +35,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
+      <head>
+        {/* Preload LCP hero image so it loads as early as possible */}
+        <link
+          rel="preload"
+          as="image"
+          href={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/images/vito-hero.jpg`}
+        />
+      </head>
       <body className="font-inter bg-noble-cream text-noble-charcoal antialiased">
         {children}
       </body>

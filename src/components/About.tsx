@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
+
 import { CheckCircle } from 'lucide-react';
 import { img } from '@/lib/paths';
 
@@ -41,12 +41,12 @@ export default function About() {
             className="relative order-2 lg:order-1"
           >
             <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={img('/images/about-driver.jpg')}
                 alt="Luxury VIP Transfer Service"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="lazy"
               />
               <div
                 className="absolute inset-0"

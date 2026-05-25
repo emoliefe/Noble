@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
+
 import { ArrowRight } from 'lucide-react';
 import { getWhatsAppURL } from '@/lib/pricing';
 import { img } from '@/lib/paths';
@@ -90,12 +90,12 @@ export default function Destinations() {
                   className="group relative rounded-2xl overflow-hidden aspect-[3/4] cursor-pointer shadow-card hover:shadow-card-hover transition-shadow duration-500"
                 >
                   {/* Image */}
-                  <Image
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src={dest.src}
                     alt={destName}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
                   />
 
                   {/* Dark gradient overlay */}
