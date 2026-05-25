@@ -11,107 +11,63 @@ import { img } from '@/lib/paths';
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* ─── Framer Motion variants ─────────────────────────────────── */
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.11, delayChildren: 0.1 },
+  },
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] } },
+};
+
+/* ─── Mini trust stats ───────────────────────────────────────── */
+const trustStats = [
+  { value: '4.9★', label: 'Rating' },
+  { value: '5000+', label: 'Transfers' },
+  { value: '7/24', label: 'Available' },
+];
+
 export default function Hero() {
   const t = useTranslations('hero');
   const reducedMotion = useReducedMotion();
 
-  const heroRef = useRef<HTMLDivElement>(null);
-  const carRef = useRef<HTMLDivElement>(null);
-  const reflectionRef = useRef<HTMLDivElement>(null);
-  const bgLayer1Ref = useRef<HTMLDivElement>(null);
-  const bgLayer2Ref = useRef<HTMLDivElement>(null);
-  const fogRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLDivElement>(null);
+  const heroRef    = useRef<HTMLDivElement>(null);
+  const carRef     = useRef<HTMLDivElement>(null);
+  const textRef    = useRef<HTMLDivElement>(null);
 
+  /* ── GSAP scroll parallax (desktop only) ── */
   useEffect(() => {
     if (reducedMotion || !heroRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Car 3D rotation and depth shift on scroll
+      // Car drifts upward slowly as user scrolls away
       if (carRef.current) {
         gsap.to(carRef.current, {
-          rotateY: 8,
-          rotateX: -2,
-          scale: 0.94,
-          y: 60,
+          y: 55,
           ease: 'none',
           scrollTrigger: {
             trigger: heroRef.current,
             start: 'top top',
             end: 'bottom top',
-            scrub: 1.8,
+            scrub: 1.6,
           },
         });
       }
 
-      // Reflection fade
-      if (reflectionRef.current) {
-        gsap.to(reflectionRef.current, {
-          opacity: 0.3,
-          y: 20,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top top',
-            end: '60% top',
-            scrub: 1,
-          },
-        });
-      }
-
-      // Background layer 1 parallax (faster)
-      if (bgLayer1Ref.current) {
-        gsap.to(bgLayer1Ref.current, {
-          y: -100,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 1,
-          },
-        });
-      }
-
-      // Background layer 2 parallax (slower)
-      if (bgLayer2Ref.current) {
-        gsap.to(bgLayer2Ref.current, {
-          y: -50,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 0.7,
-          },
-        });
-      }
-
-      // Text parallax
+      // Text block drifts and fades as hero exits viewport
       if (textRef.current) {
         gsap.to(textRef.current, {
-          y: 80,
+          y: 45,
           opacity: 0.2,
           ease: 'none',
           scrollTrigger: {
             trigger: heroRef.current,
             start: 'top top',
-            end: '70% top',
-            scrub: 1.2,
-          },
-        });
-      }
-
-      // Fog intensity change
-      if (fogRef.current) {
-        gsap.to(fogRef.current, {
-          opacity: 0.9,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: '40% top',
-            end: 'bottom top',
-            scrub: 1,
+            end: '55% top',
+            scrub: 1.1,
           },
         });
       }
@@ -120,227 +76,232 @@ export default function Hero() {
     return () => ctx.revert();
   }, [reducedMotion]);
 
-  const scrollToNext = () => {
-    const trustBar = document.getElementById('trust');
-    if (trustBar) {
-      trustBar.scrollIntoView({ behavior: 'smooth' });
-    }
+  const scrollTo = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
+    /*
+     * overflow-x: hidden — prevents the atmospheric glow and decorative
+     * layers from causing horizontal scroll on any screen size.
+     * overflow-y is unrestricted so content can flow naturally on small screens.
+     */
     <section
       ref={heroRef}
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-noble-cream"
-      style={{ background: 'linear-gradient(160deg, #FFFFFF 0%, #F8F6F2 40%, #FAFAF8 100%)' }}
+      className="relative min-h-[100svh] overflow-x-hidden"
+      style={{
+        background: 'linear-gradient(150deg, #FFFFFF 0%, #F7F5F1 45%, #FAFAF8 100%)',
+      }}
     >
-      {/* Background layers for parallax depth */}
+      {/* ── Background decorations (all inset, no overflow) ── */}
       <div
-        ref={bgLayer1Ref}
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 100% 80% at 50% 0%, rgba(184,146,74,0.07) 0%, transparent 65%)',
+          background:
+            'radial-gradient(ellipse 90% 70% at 15% 50%, rgba(184,146,74,0.07) 0%, transparent 62%)',
         }}
       />
       <div
-        ref={bgLayer2Ref}
-        className="absolute inset-0 pointer-events-none"
+        className="absolute top-0 right-0 w-1/2 h-full pointer-events-none"
         style={{
-          background: 'radial-gradient(ellipse 60% 50% at 70% 60%, rgba(184,146,74,0.04) 0%, transparent 60%)',
+          background:
+            'radial-gradient(ellipse 85% 80% at 100% 35%, rgba(184,146,74,0.05) 0%, transparent 70%)',
         }}
       />
-
       {/* Subtle grid texture */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.015]"
+        className="absolute inset-0 pointer-events-none opacity-[0.013]"
         style={{
-          backgroundImage: `linear-gradient(rgba(0,0,0,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,1) 1px, transparent 1px)`,
+          backgroundImage:
+            'linear-gradient(rgba(0,0,0,1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,1) 1px, transparent 1px)',
           backgroundSize: '80px 80px',
         }}
       />
 
-      {/* Main content */}
-      <div className="relative z-10 w-full section-container pt-28 pb-0 flex flex-col items-center">
+      {/*
+       * ── Main layout ──────────────────────────────────────────────
+       * Mobile  : flex-col   — text on top, car below
+       * Desktop : flex-row   — text left (52%), car right (48%)
+       *
+       * The section-container keeps everything within max-w-[1280px]
+       * with responsive horizontal padding — no 100vw tricks needed.
+       */}
+      <div className="section-container relative z-10 flex flex-col lg:flex-row lg:items-center min-h-[100svh] pt-24 pb-12 lg:py-0">
 
-        {/* Text Block */}
-        <div ref={textRef} className="text-center mb-4 md:mb-6">
+        {/* ── LEFT / TEXT BLOCK ── */}
+        <motion.div
+          ref={textRef}
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+          className="w-full lg:w-[52%] flex flex-col items-center lg:items-start text-center lg:text-left lg:pr-10 xl:pr-16"
+        >
           {/* Eyebrow label */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center justify-center gap-3 mb-6"
-          >
-            <span className="w-8 h-px bg-noble-gold opacity-60" />
+          <motion.div variants={itemVariants} className="flex items-center gap-3 mb-5">
+            <span className="w-6 h-px bg-noble-gold/60" />
             <span className="section-label">{t('tagline')}</span>
-            <span className="w-8 h-px bg-noble-gold opacity-60" />
+            {/* Right line — mobile only (for centred layout symmetry) */}
+            <span className="w-6 h-px bg-noble-gold/60 lg:hidden" />
           </motion.div>
 
           {/* Main headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="font-cormorant font-light text-noble-charcoal leading-[0.95] tracking-tight mb-6"
+            variants={itemVariants}
+            className="font-cormorant font-light text-noble-charcoal leading-[0.9] mb-5"
             style={{
-              fontSize: 'clamp(3.5rem, 9vw, 8.5rem)',
-              letterSpacing: '-0.02em',
+              fontSize: 'clamp(3.25rem, 8vw, 8rem)',
+              letterSpacing: '-0.025em',
             }}
           >
             <span className="block">Noble</span>
-            <span className="block italic text-noble-gold" style={{ fontSize: '0.85em' }}>
+            <span
+              className="block italic text-noble-gold"
+              style={{ fontSize: '0.83em' }}
+            >
               VIP Transfer
             </span>
           </motion.h1>
 
+          {/* Gold divider */}
+          <motion.div variants={itemVariants} className="divider-gold mx-auto lg:mx-0 mb-5" />
+
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="font-inter font-light text-noble-gray-2 max-w-xl mx-auto leading-relaxed text-balance"
-            style={{ fontSize: 'clamp(0.9375rem, 2vw, 1.1875rem)' }}
+            variants={itemVariants}
+            className="font-inter font-light text-noble-gray-2 max-w-sm lg:max-w-md leading-relaxed mb-8 lg:mb-10"
+            style={{ fontSize: 'clamp(0.9375rem, 1.6vw, 1.0625rem)' }}
           >
             {t('subtitle')}
           </motion.p>
 
-          {/* CTAs */}
+          {/* CTA buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8 md:mt-10"
+            variants={itemVariants}
+            className="flex flex-col sm:flex-row items-center lg:items-start gap-3 w-full sm:w-auto mb-10 lg:mb-12"
           >
             <motion.button
-              onClick={() => {
-                document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' });
-              }}
+              onClick={() => scrollTo('booking-form')}
               className="btn-gold flex items-center gap-2 w-full sm:w-auto justify-center"
               whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             >
               {t('cta_book')}
-              <ArrowRight size={16} />
+              <ArrowRight size={15} />
             </motion.button>
+
             <motion.button
-              onClick={() => {
-                document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
-              }}
+              onClick={() => scrollTo('pricing')}
               className="btn-ghost flex items-center gap-2 w-full sm:w-auto justify-center"
               whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileTap={{ scale: 0.97 }}
               transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             >
               {t('cta_prices')}
             </motion.button>
           </motion.div>
-        </div>
 
-        {/* Car Section — full-bleed cinematic */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96, y: 30 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full"
-          style={{
-            width: '100vw',
-            marginLeft: 'calc(-50vw + 50%)',
-            perspective: '1200px',
-          }}
-        >
-          {/* Car wrapper with 3D transform */}
-          <div
-            ref={carRef}
-            className="relative"
-            style={{ transformStyle: 'preserve-3d' }}
+          {/* Mini trust stats */}
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center gap-6 sm:gap-8 flex-wrap justify-center lg:justify-start"
           >
-            {/* Atmospheric glow behind car */}
+            {trustStats.map((stat, i) => (
+              <div key={i} className="flex items-center gap-2.5">
+                <div
+                  className="w-px h-8 opacity-20"
+                  style={{ background: '#B8924A', display: i === 0 ? 'none' : 'block' }}
+                />
+                <div>
+                  <div className="font-cormorant text-[1.35rem] font-light text-noble-charcoal leading-none">
+                    {stat.value}
+                  </div>
+                  <div className="font-inter text-[10px] tracking-[0.12em] uppercase text-noble-gray-3 mt-0.5">
+                    {stat.label}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </motion.div>
+
+        {/* ── RIGHT / CAR IMAGE ── */}
+        <motion.div
+          initial={{ opacity: 0, x: 32, scale: 0.97 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 1.3, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full lg:flex-1 flex items-center justify-center mt-10 lg:mt-0"
+        >
+          <div ref={carRef} className="relative w-full max-w-lg lg:max-w-none">
+
+            {/* Atmospheric gold glow under car */}
             <div
-              className="absolute inset-x-8 bottom-0 top-1/4 rounded-full blur-3xl opacity-20 pointer-events-none"
+              className="absolute inset-x-6 bottom-0 top-1/3 pointer-events-none"
               style={{
-                background: 'radial-gradient(ellipse at center, rgba(184,146,74,0.5) 0%, transparent 70%)',
+                background:
+                  'radial-gradient(ellipse 85% 55% at 50% 85%, rgba(184,146,74,0.18) 0%, transparent 70%)',
+                filter: 'blur(28px)',
               }}
             />
 
-            {/* Car Image */}
-            <div className="relative mx-auto max-w-5xl px-0 md:px-6">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={img('/images/vito-hero.jpg')}
-                alt="Mercedes Vito VIP — Noble VIP Transfer"
-                className="w-full h-auto object-contain"
-                style={{
-                  filter: 'drop-shadow(0 30px 60px rgba(0,0,0,0.20)) drop-shadow(0 6px 16px rgba(0,0,0,0.12))',
-                }}
-                fetchPriority="high"
-              />
-              {/* Frosted glass border */}
-              <div
-                className="absolute inset-0 pointer-events-none z-10"
-                style={{
-                  background: [
-                    'linear-gradient(to right, rgba(250,250,248,0.5) 0%, transparent 12%, transparent 88%, rgba(250,250,248,0.5) 100%)',
-                    'linear-gradient(to bottom, rgba(250,250,248,0.5) 0%, transparent 12%, transparent 88%, rgba(250,250,248,0.5) 100%)',
-                  ].join(', '),
-                }}
-              />
+            {/* Car image — plain <img> for reliable rendering in static export */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={img('/images/vito-hero.jpg')}
+              alt="Mercedes Vito VIP — Noble VIP Transfer"
+              className="relative z-10 w-full h-auto object-contain"
+              style={{
+                filter:
+                  'drop-shadow(0 20px 44px rgba(0,0,0,0.16)) drop-shadow(0 4px 10px rgba(0,0,0,0.09))',
+                maxHeight: 'clamp(38vh, 45vw, 62vh)',
+              }}
+              fetchPriority="high"
+            />
 
-              {/* Road / ground reflection */}
-              <div
-                ref={reflectionRef}
-                className="absolute inset-x-8 -bottom-4 h-16 pointer-events-none"
-                style={{
-                  background: 'linear-gradient(to bottom, rgba(0,0,0,0.12) 0%, transparent 100%)',
-                  filter: 'blur(8px)',
-                  transform: 'scaleY(-1) translateY(-100%)',
-                  opacity: 0.55,
-                  maskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
-                }}
-              />
-            </div>
+            {/* Elliptical ground shadow */}
+            <div
+              className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none z-0"
+              style={{
+                width: '72%',
+                height: '18px',
+                background:
+                  'radial-gradient(ellipse at center, rgba(0,0,0,0.15) 0%, transparent 70%)',
+                filter: 'blur(9px)',
+              }}
+            />
           </div>
-
-          {/* Ground shadow */}
-          <div
-            className="absolute left-1/2 -translate-x-1/2 bottom-0 pointer-events-none"
-            style={{
-              width: '60%',
-              height: '24px',
-              background: 'radial-gradient(ellipse at center, rgba(0,0,0,0.18) 0%, transparent 70%)',
-              filter: 'blur(10px)',
-            }}
-          />
         </motion.div>
-        <div className="pb-10 md:pb-16" />
       </div>
 
-      {/* Bottom fog gradient */}
+      {/* ── Bottom fade-out gradient ── */}
       <div
-        ref={fogRef}
-        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
         style={{
-          background: 'linear-gradient(to top, #FAFAF8 0%, rgba(250,250,248,0.6) 60%, transparent 100%)',
+          background:
+            'linear-gradient(to top, rgba(250,250,248,0.85) 0%, transparent 100%)',
         }}
       />
 
-      {/* Scroll indicator */}
+      {/* ── Scroll indicator ── */}
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.6 }}
-        onClick={scrollToNext}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 group cursor-pointer"
-        aria-label="Scroll down"
+        transition={{ delay: 1.6, duration: 0.6 }}
+        onClick={() => scrollTo('booking-form')}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 group cursor-pointer z-20"
+        aria-label="Scroll to booking form"
       >
-        <span className="font-inter text-xs tracking-[0.2em] uppercase text-noble-gray-3 group-hover:text-noble-gold transition-colors">
+        <span className="font-inter text-[10px] tracking-[0.22em] uppercase text-noble-gray-4 group-hover:text-noble-gold transition-colors duration-200">
           Scroll
         </span>
         <motion.div
-          animate={{ y: [0, 6, 0] }}
+          animate={{ y: [0, 5, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <ChevronDown size={16} className="text-noble-gray-4 group-hover:text-noble-gold transition-colors" />
+          <ChevronDown
+            size={13}
+            className="text-noble-gray-4 group-hover:text-noble-gold transition-colors duration-200"
+          />
         </motion.div>
       </motion.button>
     </section>
