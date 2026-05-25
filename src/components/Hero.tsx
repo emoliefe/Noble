@@ -7,14 +7,12 @@ import Image from 'next/image';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { getWhatsAppURL } from '@/lib/pricing';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const t = useTranslations('hero');
-  const tWhatsapp = useTranslations();
   const reducedMotion = useReducedMotion();
 
   const heroRef = useRef<HTMLDivElement>(null);
@@ -212,10 +210,10 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8 md:mt-10"
           >
-            <motion.a
-              href={getWhatsAppURL(tWhatsapp('whatsapp_message'))}
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.button
+              onClick={() => {
+                document.getElementById('booking-form')?.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="btn-gold flex items-center gap-2 w-full sm:w-auto justify-center"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -223,7 +221,7 @@ export default function Hero() {
             >
               {t('cta_book')}
               <ArrowRight size={16} />
-            </motion.a>
+            </motion.button>
             <motion.button
               onClick={() => {
                 document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
@@ -263,7 +261,7 @@ export default function Hero() {
             {/* Car Image */}
             <div className="relative mx-auto" style={{ maxWidth: '820px' }}>
               <Image
-                src="https://images.unsplash.com/photo-1549317661-bd32c8ce0105?auto=format&fit=crop&w=1600&q=85"
+                src="/images/vito-hero.jpg"
                 alt="Mercedes Vito VIP — Noble VIP Transfer"
                 width={1600}
                 height={900}
@@ -272,6 +270,16 @@ export default function Hero() {
                   filter: 'drop-shadow(0 40px 80px rgba(0,0,0,0.18)) drop-shadow(0 8px 20px rgba(0,0,0,0.10))',
                 }}
                 priority
+              />
+              {/* Frosted glass border */}
+              <div
+                className="absolute inset-0 pointer-events-none z-10"
+                style={{
+                  background: [
+                    'linear-gradient(to right, rgba(250,250,248,0.5) 0%, transparent 12%, transparent 88%, rgba(250,250,248,0.5) 100%)',
+                    'linear-gradient(to bottom, rgba(250,250,248,0.5) 0%, transparent 12%, transparent 88%, rgba(250,250,248,0.5) 100%)',
+                  ].join(', '),
+                }}
               />
 
               {/* Road / ground reflection */}

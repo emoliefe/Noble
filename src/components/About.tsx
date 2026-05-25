@@ -41,7 +41,7 @@ export default function About() {
           >
             <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
               <Image
-                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1000&q=85"
+                src="/images/about-driver.jpg"
                 alt="Luxury VIP Transfer Service"
                 fill
                 className="object-cover"
@@ -51,6 +51,17 @@ export default function About() {
                 className="absolute inset-0"
                 style={{
                   background: 'linear-gradient(to bottom, transparent 50%, rgba(13,13,13,0.3) 100%)',
+                }}
+              />
+              {/* Frosted glass border */}
+              <div
+                className="absolute inset-0 pointer-events-none z-10"
+                style={{
+                  borderRadius: 'inherit',
+                  background: [
+                    'linear-gradient(to right, rgba(250,250,248,0.45) 0%, transparent 11%, transparent 89%, rgba(250,250,248,0.45) 100%)',
+                    'linear-gradient(to bottom, rgba(250,250,248,0.45) 0%, transparent 11%, transparent 89%, rgba(250,250,248,0.45) 100%)',
+                  ].join(', '),
                 }}
               />
             </div>

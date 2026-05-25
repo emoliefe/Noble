@@ -4,16 +4,26 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
-const avatarUrls = [
-  'https://randomuser.me/api/portraits/men/32.jpg',
-  'https://randomuser.me/api/portraits/women/44.jpg',
-  'https://randomuser.me/api/portraits/women/68.jpg',
-  'https://randomuser.me/api/portraits/women/17.jpg',
-  'https://randomuser.me/api/portraits/men/54.jpg',
-  'https://randomuser.me/api/portraits/men/75.jpg',
-  'https://randomuser.me/api/portraits/women/91.jpg',
-  'https://randomuser.me/api/portraits/men/22.jpg',
+// Local review photos — mapped by index to match reviews array order
+// null = no photo uploaded for this reviewer (show initials)
+const reviewPhotos: (string | null)[] = [
+  '/images/IMG-20250517-WA0008.jpg',  // 0 James Thornton
+  '/images/IMG-20250422-WA0056.jpg',  // 1 Monika Schreiber
+  '/images/IMG-20250422-WA0054.jpg',  // 2 Anastasia Volkov
+  '/images/IMG-20250422-WA0053.jpg',  // 3 Sophie Laurent
+  '/images/IMG-20250422-WA0051.jpg',  // 4 Mehmet Yıldız
+  '/images/IMG-20250422-WA0052.jpg',  // 5 David Okafor
+  '/images/IMG-20250422-WA0049.jpg',  // 6 Isabella Rossi
+  null,                                // 7 Henrik Larsson — no photo
 ];
+
+const frostedBorder: React.CSSProperties = {
+  borderRadius: 'inherit',
+  background: [
+    'linear-gradient(to right, rgba(255,255,255,0.45) 0%, transparent 14%, transparent 86%, rgba(255,255,255,0.45) 100%)',
+    'linear-gradient(to bottom, rgba(255,255,255,0.45) 0%, transparent 14%, transparent 86%, rgba(255,255,255,0.45) 100%)',
+  ].join(', '),
+};
 
 interface Review {
   name: string;
@@ -44,46 +54,63 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-function ReviewCard({ review, avatarUrl }: { review: Review; avatarUrl: string }) {
+function ReviewCard({ review, photoSrc }: { review: Review; photoSrc: string | null }) {
   return (
     <div
-      className="flex-shrink-0 w-80 md:w-96 card-glass rounded-2xl p-6 mx-3"
-      style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.05)' }}
+      className="flex-shrink-0 w-72 sm:w-80 md:w-88 card-glass rounded-2xl overflow-hidden mx-3"
+      style={{ boxShadow: '0 4px 24px rgba(0,0,0,0.06)' }}
     >
-      {/* Stars */}
-      <StarRating rating={review.rating} />
-
-      {/* Text */}
-      <p className="font-inter text-sm text-noble-gray-2 leading-relaxed mt-4 mb-5 line-clamp-4">
-        &ldquo;{review.text}&rdquo;
-      </p>
-
-      {/* Author */}
-      <div className="flex items-center gap-3 pt-4 border-t border-noble-gray-5/60">
-        <div className="relative w-10 h-10 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-noble-gold/20">
-          <Image
-            src={avatarUrl}
-            alt={review.name}
-            fill
-            className="object-cover"
-            sizes="40px"
-          />
-        </div>
-        <div>
-          <div className="font-inter text-sm font-semibold text-noble-charcoal leading-tight">
-            {review.name}
+      {/* Photo area — full width, above text */}
+      <div className="relative h-48 w-full overflow-hidden">
+        {photoSrc ? (
+          <>
+            <Image
+              src={photoSrc}
+              alt={review.name}
+              fill
+              className="object-cover object-center"
+              sizes="(max-width: 640px) 288px, (max-width: 768px) 320px, 352px"
+            />
+            {/* Frosted glass border on photo */}
+            <div className="absolute inset-0 pointer-events-none z-10" style={frostedBorder} />
+          </>
+        ) : (
+          <div className="w-full h-full bg-noble-gold/10 flex items-center justify-center">
+            <span className="font-cormorant text-6xl font-light text-noble-gold">
+              {review.name.charAt(0)}
+            </span>
           </div>
-          <div className="font-inter text-xs text-noble-gray-3 flex items-center gap-1 mt-0.5">
-            <span>{review.flag}</span>
-            <span>{review.country}</span>
+        )}
+      </div>
+
+      {/* Content */}
+      <div className="p-5">
+        {/* Stars */}
+        <StarRating rating={review.rating} />
+
+        {/* Review text */}
+        <p className="font-inter text-sm text-noble-gray-2 leading-relaxed mt-3 mb-4 line-clamp-4">
+          &ldquo;{review.text}&rdquo;
+        </p>
+
+        {/* Author */}
+        <div className="flex items-center gap-2 pt-3 border-t border-noble-gray-5/60">
+          <div className="flex-1 min-w-0">
+            <div className="font-inter text-sm font-semibold text-noble-charcoal leading-tight truncate">
+              {review.name}
+            </div>
+            <div className="font-inter text-xs text-noble-gray-3 flex items-center gap-1 mt-0.5">
+              <span>{review.flag}</span>
+              <span className="truncate">{review.country}</span>
+            </div>
           </div>
-        </div>
-        {/* Quote icon */}
-        <div className="ml-auto opacity-20">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="#B8924A">
-            <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
-            <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
-          </svg>
+          {/* Quote icon */}
+          <div className="opacity-20 flex-shrink-0">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#B8924A">
+              <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
+              <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -135,17 +162,13 @@ export default function Testimonials() {
       <div className="relative">
         {/* Edge fade left */}
         <div
-          className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{
-            background: 'linear-gradient(to right, #FAFAF8 0%, transparent 100%)',
-          }}
+          className="absolute left-0 top-0 bottom-0 w-16 md:w-24 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to right, #F5F3EF 0%, transparent 100%)' }}
         />
         {/* Edge fade right */}
         <div
-          className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{
-            background: 'linear-gradient(to left, #FAFAF8 0%, transparent 100%)',
-          }}
+          className="absolute right-0 top-0 bottom-0 w-16 md:w-24 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to left, #F5F3EF 0%, transparent 100%)' }}
         />
 
         {/* Marquee track */}
@@ -155,7 +178,7 @@ export default function Testimonials() {
               <ReviewCard
                 key={i}
                 review={review}
-                avatarUrl={avatarUrls[i % avatarUrls.length]}
+                photoSrc={reviewPhotos[i % reviewPhotos.length]}
               />
             ))}
           </div>

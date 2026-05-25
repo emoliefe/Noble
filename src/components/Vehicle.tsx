@@ -76,18 +76,22 @@ export default function Vehicle() {
           >
             <div className="relative rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1549317661-bd32c8ce0105?auto=format&fit=crop&w=1400&q=85"
+                src="/images/vito-vehicle.jpg"
                 alt="Mercedes Vito VIP"
                 width={1400}
                 height={800}
                 className="w-full h-auto object-cover"
                 sizes="(max-width: 1024px) 100vw, 60vw"
               />
+              {/* Frosted glass border */}
               <div
-                className="absolute inset-0 rounded-2xl"
+                className="absolute inset-0 pointer-events-none z-10"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 60%)',
-                  boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.15)',
+                  borderRadius: 'inherit',
+                  background: [
+                    'linear-gradient(to right, rgba(250,250,248,0.5) 0%, transparent 10%, transparent 90%, rgba(250,250,248,0.5) 100%)',
+                    'linear-gradient(to bottom, rgba(250,250,248,0.5) 0%, transparent 10%, transparent 90%, rgba(250,250,248,0.5) 100%)',
+                  ].join(', '),
                 }}
               />
             </div>

@@ -7,46 +7,24 @@ import { ArrowRight } from 'lucide-react';
 import { getWhatsAppURL } from '@/lib/pricing';
 
 const destinationImages: Record<string, { src: string; price: number }> = {
-  // Lara — luxury beach resort east of Antalya city
-  lara: {
-    src: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=85',
-    price: 40,
-  },
-  // Belek — world-famous golf & luxury resort area
-  belek: {
-    src: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=85',
-    price: 45,
-  },
-  // Kemer — marina & Taurus mountain coastline
-  kemer: {
-    src: 'https://images.unsplash.com/photo-1596386461350-326ccb383e9f?auto=format&fit=crop&w=800&q=85',
-    price: 55,
-  },
-  // Side — ancient ruins & turquoise coast
-  side: {
-    src: 'https://images.unsplash.com/photo-1555993539-1732b0258235?auto=format&fit=crop&w=800&q=85',
-    price: 55,
-  },
-  // Alanya — castle fortress & Mediterranean coast
-  alanya: {
-    src: 'https://images.unsplash.com/photo-1602264189346-8e5e3b8a78e5?auto=format&fit=crop&w=800&q=85',
-    price: 80,
-  },
-  // Adrasan — secluded turquoise bay near Olympos
-  adrasan: {
-    src: 'https://images.unsplash.com/photo-1439066290691-dbe9ad1b0290?auto=format&fit=crop&w=800&q=85',
-    price: 95,
-  },
-  // Kaleiçi — Antalya old town, Roman harbor, Ottoman architecture
-  'kaleiçi': {
-    src: 'https://images.unsplash.com/photo-1601059823836-b82dab78e3af?auto=format&fit=crop&w=800&q=85',
-    price: 40,
-  },
-  // Konyaaltı — pebble beach & city coast west of Antalya
-  'konyaaltı': {
-    src: 'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=800&q=85',
-    price: 40,
-  },
+  lara:        { src: '/images/dest-lara.jpg',      price: 40 },
+  belek:       { src: '/images/dest-belek.jpg',     price: 45 },
+  kemer:       { src: '/images/dest-kemer.jpg',     price: 55 },
+  // Side: local photo not uploaded — CDN fallback
+  side:        { src: 'https://images.unsplash.com/photo-1555993539-1732b0258235?auto=format&fit=crop&w=800&q=85', price: 55 },
+  alanya:      { src: '/images/dest-alanya.jpg',    price: 80 },
+  adrasan:     { src: '/images/dest-adrasan.jpg',   price: 95 },
+  'kaleiçi':   { src: '/images/dest-kaleici.jpg',   price: 40 },
+  'konyaaltı': { src: '/images/dest-konyaalti.jpg', price: 40 },
+};
+
+// Frosted glass border overlay — applied on each card image
+const frostedBorder: React.CSSProperties = {
+  borderRadius: 'inherit',
+  background: [
+    'linear-gradient(to right, rgba(13,13,13,0.3) 0%, transparent 12%, transparent 88%, rgba(13,13,13,0.3) 100%)',
+    'linear-gradient(to bottom, rgba(13,13,13,0.3) 0%, transparent 12%, transparent 88%, rgba(13,13,13,0.3) 100%)',
+  ].join(', '),
 };
 
 const destinationKeys = ['lara', 'belek', 'kemer', 'side', 'alanya', 'adrasan', 'kaleiçi', 'konyaaltı'] as const;
@@ -119,7 +97,7 @@ export default function Destinations() {
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
 
-                  {/* Gradient overlay */}
+                  {/* Dark gradient overlay */}
                   <div
                     className="absolute inset-0 transition-opacity duration-300"
                     style={{
@@ -127,15 +105,18 @@ export default function Destinations() {
                     }}
                   />
 
+                  {/* Frosted glass border */}
+                  <div className="absolute inset-0 pointer-events-none z-10" style={frostedBorder} />
+
                   {/* Price badge top-right */}
-                  <div className="absolute top-4 right-4 glass rounded-full px-3 py-1">
+                  <div className="absolute top-4 right-4 z-20 glass rounded-full px-3 py-1">
                     <span className="font-inter text-xs font-semibold text-noble-gold">
                       {t('price_from')} €{dest.price}
                     </span>
                   </div>
 
                   {/* Bottom info */}
-                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <div className="absolute bottom-0 left-0 right-0 p-5 z-20">
                     <p className="font-inter text-xs text-white/60 tracking-[0.1em] uppercase mb-1">
                       {t('from')}
                     </p>
@@ -144,11 +125,7 @@ export default function Destinations() {
                     </h3>
 
                     {/* Book button — appears on hover */}
-                    <motion.div
-                      initial={{ opacity: 0, y: 8 }}
-                      whileInView={{ opacity: 0 }}
-                      className="group-hover:opacity-100 transition-opacity duration-300 opacity-0"
-                    >
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <a
                         href={getWhatsAppURL(waMsg)}
                         target="_blank"
@@ -159,7 +136,7 @@ export default function Destinations() {
                         {t('book')}
                         <ArrowRight size={12} />
                       </a>
-                    </motion.div>
+                    </div>
                   </div>
                 </motion.div>
               </motion.div>
